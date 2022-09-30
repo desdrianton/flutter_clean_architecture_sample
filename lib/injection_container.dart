@@ -29,8 +29,8 @@ Future<void> init() async {
   sl.registerFactory(() => NumberTriviaBloc(concrete: sl(), random: sl(), inputConverter: sl()));
 
   // Usecases
-  sl.registerLazySingleton(() => GetConcreteNumberTrivia(sl()));
-  sl.registerLazySingleton(() => GetRandomNumberTrivia(sl()));
+  sl.registerLazySingleton(() => GetConcreteNumberTriviaUseCase(sl()));
+  sl.registerLazySingleton(() => GetRandomNumberTriviaUseCase(sl()));
 
   // Core
   sl.registerLazySingleton(() => InputConverter());

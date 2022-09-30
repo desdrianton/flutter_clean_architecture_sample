@@ -5,13 +5,13 @@ import 'package:flutter_clean_architecture_sample/core/usecases/usecase.dart';
 import 'package:flutter_clean_architecture_sample/features/number_trivia/domain/entities/number_trivia.dart';
 import 'package:flutter_clean_architecture_sample/features/number_trivia/domain/repositories/number_trivia_repository.dart';
 
-class GetConcreteNumberTrivia extends UseCase<NumberTrivia, Params> {
+class GetConcreteNumberTriviaUseCase extends UseCase<NumberTriviaEntity, Params> {
   final NumberTriviaRepository repository;
 
-  GetConcreteNumberTrivia(this.repository);
+  GetConcreteNumberTriviaUseCase(this.repository);
 
   @override
-  Future<Either<Failure, NumberTrivia>> call(Params params) async {
+  Future<Either<Failure, NumberTriviaEntity>> call(Params params) async {
     return await repository.getConcreteNumberTrivia(params.number);
   }
 }

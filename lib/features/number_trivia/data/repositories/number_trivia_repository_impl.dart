@@ -8,7 +8,7 @@ import 'package:flutter_clean_architecture_sample/features/number_trivia/data/mo
 import 'package:flutter_clean_architecture_sample/features/number_trivia/domain/entities/number_trivia.dart';
 import 'package:flutter_clean_architecture_sample/features/number_trivia/domain/repositories/number_trivia_repository.dart';
 
-typedef _ConcreteOrRandomChooser = Future<NumberTrivia> Function();
+typedef _ConcreteOrRandomChooser = Future<NumberTriviaEntity> Function();
 
 class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   final NumberTriviaRemoteDataSource remoteDataSource;
@@ -22,20 +22,20 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   });
 
   @override
-  Future<Either<Failure, NumberTrivia>> getConcreteNumberTrivia(int number,) async {
+  Future<Either<Failure, NumberTriviaEntity>> getConcreteNumberTrivia(int number,) async {
     return await _getTrivia(() {
       return remoteDataSource.getConcreteNumberTrivia(number);
     });
   }
 
   @override
-  Future<Either<Failure, NumberTrivia>> getRandomNumberTrivia() async {
+  Future<Either<Failure, NumberTriviaEntity>> getRandomNumberTrivia() async {
     return await _getTrivia(() {
       return remoteDataSource.getRandomNumberTrivia();
     });
   }
 
-  Future<Either<Failure, NumberTrivia>> _getTrivia(_ConcreteOrRandomChooser getConcreteOrRandom,) async {
+  Future<Either<Failure, NumberTriviaEntity>> _getTrivia(_ConcreteOrRandomChooser getConcreteOrRandom,) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteTrivia = await getConcreteOrRandom();

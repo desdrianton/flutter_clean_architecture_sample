@@ -7,17 +7,17 @@ abstract class NumberTriviaEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GetTriviaForConcreteNumber extends NumberTriviaEvent {
+class GetTriviaForConcreteNumberEvent extends NumberTriviaEvent {
   final String numberString;
 
-  const GetTriviaForConcreteNumber({required this.numberString}) : super();
+  const GetTriviaForConcreteNumberEvent({required this.numberString}) : super();
 
   @override
   List<Object?> get props => [numberString];
 }
 
-class GetTriviaForRandomNumber extends NumberTriviaEvent {
-  const GetTriviaForRandomNumber() : super();
+class GetTriviaForRandomNumberEvent extends NumberTriviaEvent {
+  const GetTriviaForRandomNumberEvent() : super();
 
   @override
   List<Object?> get props => [];

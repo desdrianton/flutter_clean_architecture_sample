@@ -33,23 +33,23 @@ class NumberTriviaPage extends StatelessWidget {
               const SizedBox(height: 10),
               BlocBuilder<NumberTriviaBloc, NumberTriviaState>(
                 builder: (context, state) {
-                  if (state is Empty) {
+                  if (state is EmptyState) {
                     return SizedBox(
                       height: MediaQuery.of(context).size.height / 3,
                       child: const Center(
                         child: Text('Start searching!'),
                       ),
                     );
-                  } else if (state is Loading) {
+                  } else if (state is LoadingState) {
                     return const LoadingWidget();
-                  } else if (state is Error) {
+                  } else if (state is ErrorState) {
                     return MessageDisplay(
                       message: state.message,
                     );
                   }
 
                   return TriviaDisplay(
-                    numberTrivia: (state as Loaded).trivia,
+                    numberTrivia: (state as LoadedState).trivia,
                   );
                 },
               ),
@@ -105,7 +105,7 @@ class LoadingWidget extends StatelessWidget {
 }
 
 class TriviaDisplay extends StatelessWidget {
-  final NumberTrivia numberTrivia;
+  final NumberTriviaEntity numberTrivia;
 
   const TriviaDisplay({
     Key? key,
@@ -201,12 +201,12 @@ class _TriviaControlsState extends State<TriviaControls> {
   void dispatchConcrete() {
     controller.clear();
     BlocProvider.of<NumberTriviaBloc>(context)
-        .add(GetTriviaForConcreteNumber(numberString: numberString));
+        .add(GetTriviaForConcreteNumberEvent(numberString: numberString));
   }
 
   void dispatchRandom() {
     controller.clear();
     BlocProvider.of<NumberTriviaBloc>(context)
-        .add(const GetTriviaForRandomNumber());
+        .add(const GetTriviaForRandomNumberEvent());
   }
 }
