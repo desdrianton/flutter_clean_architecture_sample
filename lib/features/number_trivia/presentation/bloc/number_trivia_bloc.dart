@@ -15,16 +15,16 @@ const String invalidInputFailureMessage =
     'Invalid Input - The number must be a positive integer or zero.';
 
 class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
-  final GetConcreteNumberTriviaUseCase getConcreteNumberTrivia;
-  final GetRandomNumberTriviaUseCase getRandomNumberTrivia;
+  final GetConcreteNumberTriviaUseCase getConcreteNumberTriviaUseCase;
+  final GetRandomNumberTriviaUseCase getRandomNumberTriviaUseCase;
   final InputConverter inputConverter;
 
   NumberTriviaBloc({
     required GetConcreteNumberTriviaUseCase concrete,
     required GetRandomNumberTriviaUseCase random,
     required this.inputConverter,
-  })  : getConcreteNumberTrivia = concrete,
-        getRandomNumberTrivia = random,
+  })  : getConcreteNumberTriviaUseCase = concrete,
+        getRandomNumberTriviaUseCase = random,
         super(EmptyState()) {
     on<GetTriviaForConcreteNumberEvent>(_onGetTriviaForConcreteNumber);
     on<GetTriviaForRandomNumberEvent>(_onGetTriviaForRandomNumber);
@@ -39,7 +39,7 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
 
     rightHandler(number) async {
       emit(LoadingState());
-      Either<Failure, NumberTriviaEntity> failureOrTrivia = await getConcreteNumberTrivia(Params(number: number));
+      Either<Failure, NumberTriviaEntity> failureOrTrivia = await getConcreteNumberTriviaUseCase(Params(number: number));
       _eitherErrorOrLoadedState(failureOrTrivia, emit);
     }
 
@@ -48,7 +48,7 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
 
   Future<void> _onGetTriviaForRandomNumber(GetTriviaForRandomNumberEvent event, emit) async {
     emit(LoadingState());
-    Either<Failure, NumberTriviaEntity> failureOrTrivia = await getRandomNumberTrivia(NoParams());
+    Either<Failure, NumberTriviaEntity> failureOrTrivia = await getRandomNumberTriviaUseCase(NoParams());
     _eitherErrorOrLoadedState(failureOrTrivia, emit);
   }
 
